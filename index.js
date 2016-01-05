@@ -13,6 +13,11 @@ app.get('/', function(request, response) {
   response.send('Hello World!');
 });
 
+app.post('/webhook', function(request, response) {
+  console.log('webhook: ', request)
+  response.send('thanks')
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
