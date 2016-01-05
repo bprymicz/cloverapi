@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/bprymicz/cloverapi",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "express": "^4.13.3"
   }
 }
