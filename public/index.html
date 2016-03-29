@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="cloverApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body ng-controller="Landing">
+<h2>Here we go. 2</h2>
+<p>Yay!?</p>
+<h3>On Tap:</h3>
+<ul>
+    <li ng-repeat="tap in taps">{{tap.name}} - {{tap.price / 100}}</li>
+</ul>
+<h3>Inventory</h3>
+<ul>
+    <li ng-repeat="beer in beerInventory">{{beer.name}} - {{beer.price / 100}}</li>
+</ul>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+<script src="clover.service.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

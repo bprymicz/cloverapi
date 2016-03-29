@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/bprymicz/cloverapi",
   "dependencies": {
+    "angular": "^1.4.8",
     "body-parser": "^1.14.2",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "lodash": "^4.0.0",
+    "request": "^2.69.0",
+    "zlib": "^1.0.5"
   }
 }
