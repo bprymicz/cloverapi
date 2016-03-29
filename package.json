@@ -22,7 +22,6 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "lodash": "^4.0.0",
-    "request": "^2.69.0",
-    "zlib": "^1.0.5"
+    "request": "^2.69.0"
   }
 }

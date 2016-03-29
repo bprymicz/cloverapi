@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var https = require('https');
-var zlib = require('zlib');
 var bodyParser = require('body-parser');
 var _ = require('lodash');
 var server = require('http').createServer(app);
@@ -142,66 +141,6 @@ function respondBeer(beers, cb) {
     cb(beerText);
   })
 }
-
-app.get('/inventory', function(request, response) {
-  var options = {
-    port: 443,
-    host: CLOVER_URL,
-    path: '/v3/merchants/NATHK6XKV2BF4/items?expand=tags%2Ccategories&limit=1000', // dev acct
-    method: 'GET',
-    headers: {
-      'Authorization': CLOVER_AUTH,
-      'Accept-Encoding': 'gzip',
-      'Cache-Control': {'max-age': 0},
-      'Host': CLOVER_HOST,
-      'Content-type': 'application/json'
-    }
-  };
-  var req = https.request(options, function(res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    var chunks = [];
-    res.on('data', function(chunk) {
-      chunks.push(chunk);
-    });
-    res.on('end', function() {
-      //console.log(chunked);
-      console.log('No more data in response.')
-    });
-    res.on('end', function() {
-      var buffer = Buffer.concat(chunks);
-      var encoding = res.headers['content-encoding'];
-      if (encoding == 'gzip') {
-        zlib.gunzip(buffer, function(err, decoded) {
-          if (decoded && decoded.toString()) {
-            var resp = JSON.parse(decoded.toString());
-            filterByCategory(resp,'Draft Beer', function (data){
-              response.send(data);
-            });
-          }
-        });
-      } else if (encoding == 'deflate') {
-        zlib.inflate(buffer, function(err, decoded) {
-          if (decoded && decoded.toString()) {
-            var resp = JSON.parse(decoded.toString());
-            filterByCategory(resp,'Draft Beer', function (data){
-              response.send(data);
-            });
-          }
-        })
-      } else {
-        response.send(buffer.toString());
-      }
-    });
-  });
-
-  req.on('error', function(e) {
-    console.log('problem with request: ' + e.message);
-    response.send({error: e});
-  });
-
-  req.end();
-});
 
 server.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
